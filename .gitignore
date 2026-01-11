@@ -1,0 +1,13 @@
+# OS files
+.DS_Store
+
+# Neovim
+.config/nvim/.nvimlog
+.config/nvim/node_modules/
+.config/nvim/lazy-lock.json
+
+# Sensitive files (just in case)
+*.pem
+*.key
+*credentials*
+*secret*
