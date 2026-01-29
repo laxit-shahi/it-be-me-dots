@@ -79,12 +79,13 @@ return {
         gopls = {},
         pyright = {},
         rust_analyzer = {},
-        ts_ls = {
-          root_dir = function(fname)
-            local util = require('lspconfig.util')
-            return util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git')(fname)
-          end,
-        },
+        -- Replaced with typescript tools
+        -- ts_ls = {
+        --   root_dir = function(fname)
+        --     local util = require('lspconfig.util')
+        --     return util.root_pattern('package.json', 'tsconfig.json', 'jsconfig.json', '.git')(fname)
+        --   end,
+        -- },
         html = { filetypes = { 'html', 'twig', 'hbs', 'svelte' } },
         -- ruby_ls = {},
         lua_ls = {

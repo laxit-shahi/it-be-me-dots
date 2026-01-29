@@ -75,7 +75,7 @@ return {
         --   args = function(params)
         --     local file_dir = vim.fn.fnamemodify(params.bufname, ':p:h')
         --     local is_shopify = vim.fn.findfile('dev.yml', file_dir .. ';') ~= ''
-        --     return is_shopify and 
+        --     return is_shopify and
         --       { 'exec', 'rubocop', '--disable-pending-cops', '--format', 'json', '--stdin', '$FILENAME' } or
         --       { '--disable-pending-cops', '--format', 'json', '--stdin', '$FILENAME' }
         --   end,
