@@ -7,6 +7,39 @@ return {
     -- bare Octo command opens picker of commands
     enable_builtin = true,
   },
+  config = function(_, opts)
+    require('octo').setup(opts)
+
+    local ok_commands, commands = pcall(require, 'octo.commands')
+    if not ok_commands or not commands.commands then
+      return
+    end
+
+    local ok_picker, picker = pcall(require, 'octo.picker')
+    if not ok_picker then
+      return
+    end
+
+    local function wrap_edit(kind, picker_fn)
+      -- Avoid invalid octo:// buffers by falling back to pickers when no args are provided.
+      local kind_commands = commands.commands[kind]
+      if not kind_commands or type(kind_commands.edit) ~= 'function' then
+        return
+      end
+      local original = kind_commands.edit
+      kind_commands.edit = function(...)
+        if select('#', ...) == 0 then
+          picker_fn()
+          return
+        end
+        return original(...)
+      end
+    end
+
+    wrap_edit('issue', picker.issues)
+    wrap_edit('pr', picker.prs)
+    wrap_edit('discussion', picker.discussions)
+  end,
   keys = {
     {
       '<leader>oi',

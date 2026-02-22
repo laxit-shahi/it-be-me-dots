@@ -6,5 +6,6 @@
       "Bash(bundle:*)"
     ]
   },
-  "enableAllProjectMcpServers": false
+  "enableAllProjectMcpServers": false,
+  "prefersReducedMotion": false
 }
