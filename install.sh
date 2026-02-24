@@ -41,14 +41,14 @@ link_file "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 link_file "$DOTFILES_DIR/.config/nvim" "$HOME/.config/nvim"
 link_file "$DOTFILES_DIR/.config/karabiner/karabiner.json" "$HOME/.config/karabiner/karabiner.json"
 
-# Scripts
-for script in "$DOTFILES_DIR/scripts/line_numbers.sh" "$DOTFILES_DIR/scripts/copy_mode_with_line_numbers.sh"; do
-    if [ -f "$script" ]; then
-        chmod +x "$script"
-    fi
-done
-link_file "$DOTFILES_DIR/scripts/line_numbers.sh" "$HOME/.tmux/line_numbers.sh"
-link_file "$DOTFILES_DIR/scripts/copy_mode_with_line_numbers.sh" "$HOME/.config/tmux/copy_mode_with_line_numbers.sh"
+## Scripts (line numbers helper disabled for now)
+# for script in "$DOTFILES_DIR/scripts/line_numbers.sh" "$DOTFILES_DIR/scripts/copy_mode_with_line_numbers.sh"; do
+#     if [ -f "$script" ]; then
+#         chmod +x "$script"
+#     fi
+# done
+# link_file "$DOTFILES_DIR/scripts/line_numbers.sh" "$HOME/.tmux/line_numbers.sh"
+# link_file "$DOTFILES_DIR/scripts/copy_mode_with_line_numbers.sh" "$HOME/.config/tmux/copy_mode_with_line_numbers.sh"
 
 # Ghostty (macOS specific location)
 link_file "$DOTFILES_DIR/.config/ghostty/config" "$HOME/Library/Application Support/com.mitchellh.ghostty/config"

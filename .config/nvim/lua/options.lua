@@ -59,7 +59,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.diagnostic.config { virtual_text = false }
+vim.diagnostic.config { virtual_text = true }
 
 -- Add command to copy relative file path to clipboard
 vim.api.nvim_create_user_command('CopyRelPath', function()

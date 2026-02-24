@@ -25,4 +25,3 @@ map('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list
 -- General Remaps
 map({ 'n', 'v' }, '<C-d>', '<C-d>zz', { desc = 'Ceneter after C-d', remap = true })
 map({ 'n', 'v' }, '<C-u>', '<C-u>zz', { desc = 'Ceneter after C-d', remap = true })
-map({ 'n', 'v' }, '<leader>cu', ':!cursor %', { desc = 'Open cursor in current buffer' })
