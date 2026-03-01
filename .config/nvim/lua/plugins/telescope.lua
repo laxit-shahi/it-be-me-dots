@@ -97,6 +97,35 @@ return {
           prompt_title = 'Live Grep in Open Files',
         }
       end
+
+      local function get_clipboard_text()
+        local clipboard = vim.fn.getreg '+'
+        if clipboard == '' then
+          clipboard = vim.fn.getreg '"'
+        end
+        clipboard = vim.fn.trim(clipboard):gsub('\n', ' ')
+        if clipboard == '' then
+          return nil
+        end
+        return clipboard
+      end
+
+      local function telescope_find_files_clipboard()
+        local clipboard = get_clipboard_text()
+        if not clipboard then
+          return
+        end
+        require('telescope.builtin').find_files { default_text = clipboard }
+      end
+
+      local function telescope_live_grep_clipboard()
+        local clipboard = get_clipboard_text()
+        if not clipboard then
+          return
+        end
+        require('telescope.builtin').live_grep { default_text = clipboard }
+      end
+
       vim.keymap.set('n', '<leader>s/', telescope_live_grep_open_files, { desc = '[S]earch [/] in Open Files' })
       vim.keymap.set('n', '<leader>ss', require('telescope.builtin').builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search [G]it [F]iles' })
@@ -104,6 +133,8 @@ return {
       vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sc', telescope_find_files_clipboard, { desc = '[S]earch [C]files' })
+      vim.keymap.set('n', '<leader>sC', telescope_live_grep_clipboard, { desc = '[S]earch [C]grep' })
       vim.keymap.set('n', '<leader>sG', ':LiveGrepGitRoot<cr>', { desc = '[S]earch by [G]rep on Git Root' })
       vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
