@@ -3,8 +3,8 @@ return {
   'folke/which-key.nvim',
   opts = {},
   config = function()
-    -- Use new which-key spec format
-    require('which-key').add({
+    local wk = require 'which-key'
+    local spec = {
       -- Normal mode key groups
       { "<leader>c", group = "[C]ode" },
       { "<leader>c_", hidden = true },
@@ -26,6 +26,28 @@ return {
       -- Visual mode mappings
       { "<leader>", group = "VISUAL <leader>", mode = "v" },
       { "<leader>h", desc = "Git [H]unk", mode = "v" },
-    })
+    }
+
+    -- which-key v3+ exposes `add`, older versions use `register`.
+    if type(wk.add) == 'function' then
+      wk.add(spec)
+      return
+    end
+
+    if type(wk.register) == 'function' then
+      wk.register({
+        c = { name = "[C]ode" },
+        d = { name = "[D]ocument" },
+        g = { name = "[G]it" },
+        h = { name = "Git [H]unk" },
+        r = { name = "[R]ename" },
+        s = { name = "[S]earch" },
+        w = { name = "[W]orkspace" },
+      }, { prefix = "<leader>", mode = "n" })
+
+      wk.register({
+        h = { name = "Git [H]unk" },
+      }, { prefix = "<leader>", mode = "v" })
+    end
   end
 }
