@@ -59,13 +59,28 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   pattern = '*',
 })
 
-vim.diagnostic.config { virtual_text = true }
+vim.diagnostic.config {
+  virtual_text = {
+    severity = vim.diagnostic.severity.ERROR,
+  },
+  underline = {
+    severity = vim.diagnostic.severity.ERROR,
+  },
+}
 
 -- Add command to copy relative file path to clipboard
 vim.api.nvim_create_user_command('CopyRelPath', function()
   local path = vim.fn.expand '%'
   vim.fn.setreg('+', path)
   vim.notify('Copied: ' .. path)
+end, {})
+
+vim.api.nvim_create_user_command('LineRelPath', function()
+  local path = vim.fn.expand '%'
+  local line = vim.fn.line '.'
+  local result = path .. ':' .. line
+  vim.fn.setreg('+', result)
+  vim.notify('Copied: ' .. result)
 end, {})
 
 -- Auto refresh file on file change from other sources?
@@ -75,11 +90,11 @@ vim.opt.autoread = true
 vim.api.nvim_create_user_command('ReloadConfig', function()
   -- Clear cached Lua modules for our config
   for name, _ in pairs(package.loaded) do
-    if name:match('^plugins') or name:match('^options') or name:match('^keymaps') or name:match('^util') then
+    if name:match '^plugins' or name:match '^options' or name:match '^keymaps' or name:match '^util' then
       package.loaded[name] = nil
     end
   end
   -- Re-source init.lua
-  dofile(vim.fn.stdpath('config') .. '/init.lua')
-  vim.notify('Config reloaded!')
+  dofile(vim.fn.stdpath 'config' .. '/init.lua')
+  vim.notify 'Config reloaded!'
 end, {})
